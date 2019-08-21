@@ -1,0 +1,122 @@
+
+# N E X T F L O W  ~  version 18.10.1
+
+
+verbose: true
+
+do_fastqc: true
+do_md5sum: true
+do_check_file_existence : true
+
+# Removes duplicate reads based on their length
+# and mapped position
+deduplicate: true
+
+# Command line arguments for the aligner for 
+# corresponding steps
+alignment_arguments:
+   # bowtie2 arguments
+   filter: '-L 15 --no-unal --norc'
+   transcriptome: '-L 15 --norc --no-unal'
+   # hisat2 arguments
+   # use -k 1 so that each aligned read is reported once.
+   # otherwise, our read length analysis values might be inflated. 
+   genome: '--no-unal -k 1'
+
+
+read_length:
+   # These two are used for separating bed files
+   # for region counts and metagene analysis
+   min: 15
+   max: 40
+
+   # This is used for read length analysis
+   uppder_bound_for_analysis: 40
+
+# These areguments are used for running cutadapt
+clip_arguments: '-u 1 -a CTGTAGGCACCATCAAT --overlap=4 --trimmed-only --maximum-length=40 --minimum-length=15 --quality-cutoff=28'
+
+# Transcriptome alignments are filtered based on mapping quality.
+# This is the threshold that the alignments need to pass for
+# downstream quantification
+mapping_quality_cutoff: 2
+
+metagene_radius: 50
+
+left_span: 35
+right_span: 10
+
+######################################################################################
+# If you don't know much about the internals of the pipeline, it is better
+# not to change the values below here till input
+
+scripts_folder: 'scripts'
+pipeline_folder: 'pipeline'
+
+# Output folder settings
+# Note that everything is placed as a subfolder under the *base* folder
+# *base* gives the actual folder location
+# The other parameters are folder names that are going to be under the *base* 
+output:
+   individual_lane_directory: 'individual'
+   merged_lane_directory: 'merged'
+   intermediates: 
+      # base is the root folder for the intermediate files
+      base: 'intermediates'
+      md5: 'md5sums'
+      clip: 'clip'
+      log: 'log'
+      transcriptome_alignment: 'transcriptome_alignment'
+      filter: 'filter'
+      genome_alignment: 'genome_alignment'
+      bam_to_bed: 'bam_to_bed'
+      quality_filter: 'quality_filter'
+   output: 
+      # base is the root folder for the output files
+      base: 'output'
+      log: 'log'
+      md5: 'md5sums'
+      raw_fastqc: 'raw_fastqc'
+      clipped_fastqc: 'clipped_fastqc'
+      transcriptome_aligned_fastqc: 'transcriptome_aligned_fastqc'
+      transcriptome_unaligned_fastqc: 'transcriptome_unaligned_fastqc'
+      transcriptome_alignment: 'transcriptome_alignment'
+      genome_alignment: 'genome_alignment'
+
+
+######################################################################################
+
+input:
+   reference:
+   # filter is the bowtie2 reference
+   # It goes to the -x argument of the filtering step
+      filter: sample_data/rtRNA/marker_and_human_rtRNA
+
+      # transcriptome is the bowtie2 reference
+      # It goes to the -x argument of the transcriptome_alignment step
+      transcriptome: sample_data/appris/appris_human_24_01_2019_selected
+
+      ### !!! DO NOT FORGET TO CHECK THIS
+      ### !!! IN THE ACTUAL PIELINE RUN !!!!
+      genome: /work/06059/ozadamh/lonestar/reference/human/HISAT2/grch38_snp_tran/genome_snp_tran
+
+      # Main annotation file.
+      # UTR5, CDS and UTR3 regions of the 
+      # This file is used by region count steps 
+      regions: sample_data/appris_human_24_01_2019_actual_regions.bed
+
+      # Transcript lengths
+      transcript_lengths: sample_data/appris_human_24_01_2019_selected.lengths.tsv
+
+   # fastq_base will be prefixed to the file paths below
+   fastq_base: "/work/06059/ozadamh/lonestar/projects/ITP/ingolia_data/raw/ribosome_profiling/"
+   raw_fastq: 
+
+      GSM1606107:  
+        - GSM1606107/SRR1795425.fastq.gz 
+        - GSM1606107/SRR1795426.fastq.gz
+
+      GSM1606108:
+        - GSM1606108/SRR1795427.fastq.gz
+        - GSM1606108/SRR1795428.fastq.gz
+

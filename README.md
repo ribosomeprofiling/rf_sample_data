@@ -26,7 +26,9 @@ Includes raw reads for ribosome profiling and RNA-Seq data.
 Each sample has two fastq files. 
 All fastq files are obtained by taking a subset of reads from
 the publicly available data
-( [NCBI GEO acession number GSE65778](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE65778) )
+([NCBI GEO accession number ](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE185732) published in  [Ozadam, Tonn, Han, et.al., ](https://www.nature.com/articles/s41586-023-06228-9)
+and 
+[NCBI GEO accession number GSE65778](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE65778) )
 published in 
 [Sidrauski et. al.](https://elifesciences.org/articles/05033).  
 

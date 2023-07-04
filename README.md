@@ -5,6 +5,8 @@ A complete set of sample files to test and try
 
 All files and references herein are coming from the human genome.
 
+The files in this repo are random subsets of the originally published data. For each sample, there is 1 million raw reads which is a fraction of the original data.
+
 ## Required and Optional Files
 
 Not all files are required by RiboFlow. 

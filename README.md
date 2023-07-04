@@ -25,10 +25,12 @@ Not all files are required by RiboFlow.
 Includes raw reads for ribosome profiling and RNA-Seq data.
 Each sample has two fastq files. 
 All fastq files are obtained by taking a subset of reads from
-the publicly available data
-([NCBI GEO accession number ](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE185732) published in  [Ozadam, Tonn, Han, et.al., ](https://www.nature.com/articles/s41586-023-06228-9)
-and 
-[NCBI GEO accession number GSE65778](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE65778) )
+the publicly available data.
+  1) Single cell ribosome profiling data with UMIs: (1cell-2, 1cell-4)  
+  [NCBI GEO accession number GSE185732](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE185732) published in  [Ozadam, Tonn, Han, et.al.](https://www.nature.com/articles/s41586-023-06228-9)  
+  This dataset contains UMIs which need to be removed prior to alignment.
+  2) Bulk ribosome profiling and RNA-Seq data: ( GSM1606107 and GSM1606108 )  
+[NCBI GEO accession number GSE65778](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE65778)
 published in 
 [Sidrauski et. al.](https://elifesciences.org/articles/05033).  
 
